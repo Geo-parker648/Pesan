@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan Rahasia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        #output {
+            font-size: 18px;
+            min-height: 50px;
+            margin-bottom: 10px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        input {
+            width: 80%;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Pesan Rahasia</h2>
+        <div id="output"></div>
+        <input type="text" id="namaInput" placeholder="Masukkan nama kamu..." />
+        <button onclick="start()">Mulai</button>
+        <div id="jawabanContainer" style="display: none;">
+            <button onclick="jawab('ya')">Ya</button>
+            <button onclick="jawab('tidak')">Tidak</button>
+        </div>
+    </div>
+
+    <script>
+        function typeEffect(text, delay = 130) {
+            return new Promise((resolve) => {
+                let i = 0;
+                let output = document.getElementById("output");
+                output.innerHTML = "";
+                
+                function type() {
+                    if (i < text.length) {
+                        output.innerHTML += text[i];
+                        i++;
+                        setTimeout(type, delay);
+                    } else {
+                        resolve();
+                    }
+                }
+                type();
+            });
+        }
+
+        async function start() {
+            let nama = document.getElementById("namaInput").value.trim();
+            if (nama === "") {
+                alert("Masukkan nama dulu dong!");
+                return;
+            }
+
+            document.getElementById("namaInput").style.display = "none";
+            document.querySelector("button").style.display = "none";
+
+            await typeEffect("Hai, " + nama + "...");
+            await typeEffect("Maaf ya, telat ngucapinnya hehe...");
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await typeEffect("Gw Cuman Mau Bilang............")
+            await typeEffect("Selamat ulang tahun ke-18...");
+            await typeEffect("Yeeeey 🎉🎂🎈...");
+            await typeEffect("Kamu itu spesial, kurcaci. Hehe.");
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            await typeEffect("Kira-kira harapan kamu di umur 18 ini apa ya?");
+            await typeEffect("Boleh aku tebak...?");
+
+            document.getElementById("jawabanContainer").style.display = "block";
+        }
+
+        async function jawab(jawaban) {
+            document.getElementById("jawabanContainer").style.display = "none";
+
+            if (jawaban === "ya") {
+                await typeEffect("Aku tebak... harapan kamu di umur 18 ini...");
+                await typeEffect("Bisa naik sepeda UIN kan? Wkwk 🤭");
+                await typeEffect(":) Just kidding! XD");
+                await typeEffect("Aku tahu kok, pasti harapannya pengin jadi pribadi yang lebih baik dari kemarin...");
+                await typeEffect("Atau mungkin lebih dari itu... dan aku yakin kamu bisa meraihnya!");
+                await typeEffect("Selamat Ulang Tahun Ke 18 🎉🎂🎈...");
+            } else {
+                await typeEffect("Dih, parah... 😒");
+                await typeEffect("Yaudah, aku doain kamu selamanya nggak bisa naik sepeda UIN deh. Bleeeeee 🤪");
+            }
+        }
+    </script>
+
+</body>
+</html>
